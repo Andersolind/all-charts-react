@@ -18,9 +18,9 @@ const UserSessionChart = () => {
     let chart = anychart.sunburst(dataTree);
     const [sliderData, setSliderData] = useState({
         min: 0,
-        max: 100,
-        step: 5,
-        initialValue: 50,
+        max: stats.length,
+        step: 2,
+        initialValue: stats.length,
         marks: [0,10,15,22,50,60,70, 100, 150, 200],
         names: stats
     });
@@ -29,35 +29,19 @@ const UserSessionChart = () => {
 
     useEffect(() => {
         dispatch(loadMockData());
-        setTimeout(() => {    
-            setSliderData({
-                min: 0,
-                max: 200,
-                step: 10,
-                initialValue: 100,
-                marks: [0,10,15,22,50,60,70, 100, 150, 200],
-                names: stats
-            });
-            
-        }, 1000);
     }, []);
 
     
-
-   
     const rangeChange = (name: string) => {
         var item = dataTree.search("name", name);
-
         // drill down to the item
         chart.drillTo(item);
-
         // drill up a level
         chart.drillUp();
         return chart.draw()
     }
 
     const setupChart = () => {
-
         chart.listen("dblclick", (event: any) => {
             setCustomerData((prevNotifications) =>
                 prevNotifications.filter((stats) => stats.id !== event.target.me.value)
@@ -81,17 +65,12 @@ const UserSessionChart = () => {
         chart.selected().stroke("#96a6a6", 4);
         // set chart title
         chart.title("Customer Stats 2024");
-
         // format chart labels
         chart.labels().format("{%Name}\n{%Value}{scale:(10000)(1)|( k)}");
-
         // format chart tooltip
         chart.tooltip().format("{%Name}: {%Value}{scale:(10000)(1)|( k)}");
-
-        // the fill specified in the data has priority
         // set point fill
         chart.fill(() => {
-
             return anychart.color.darken("red", 0.15);
         });
         //sets the angle of the sunburt
@@ -116,7 +95,6 @@ const UserSessionChart = () => {
                 {loading ? (
                     <li>No Stats available.</li>
                 ) : (
-                  
                   <Slider
                     min={sliderData.min}
                     max={sliderData.max}
@@ -125,8 +103,7 @@ const UserSessionChart = () => {
                     marks={sliderData.marks}
                     names={sliderData.names}
                     onSliderChange={handleSliderChange} />
-                )
-                  
+                ) 
             }
              </div>
                    

@@ -2,6 +2,7 @@ import React from "react"
 
 import { Stats } from "../features/campus/campusSlice";
 import LengendIndicator from "./LegendIndicator";
+import formatCurrency from "../utils/Currency";
 
 interface Customer {
     id: string;
@@ -12,19 +13,14 @@ interface CustomerGridProps {
     statsData: Customer[];
 }
 const CustomerGrid: React.FC<CustomerGridProps> = ({ statsData }) => {
-    function formatCurrency(currencyString: string) {
-        let convertNumber = currencyString.toString()
-        let firstHalf = convertNumber.substring(0, convertNumber.length - 2);
-        let secondHalf = convertNumber.substring(convertNumber.length - 2, convertNumber.length);
-        return parseFloat(`${firstHalf}.${secondHalf}`).toLocaleString('en-EN', { style: 'currency', currency: 'USD' });
-    }
+ 
     return (
 
         <>
             {statsData.length === 0 ? (
                 <li>No Stats available.</li>
             ) : (
-                <div className="align-middle inline-block overflow-auto   shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+                <div className="align-middle inline-block overflow-auto shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
                     <div>Stats Count- {statsData.length}</div>
                     <table className="min-w-full w-full overflow-x-auto">
                         <thead>
