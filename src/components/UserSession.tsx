@@ -1,4 +1,5 @@
 import AnyChart from "anychart-react";
+// @ts-ignore
 import anychart from "anychart";
 import { useEffect, useState } from "react";
 import CustomerGrid from "./CustomerGrid";
@@ -13,10 +14,10 @@ import { Stats } from "../features/campus/campusSlice";
 const UserSessionChart = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { stats, loading, error } = useSelector((state: RootState) => state.stats);
+    const { stats, loading } = useSelector((state: RootState) => state.stats);
     let dataTree = anychart.data.tree(stats, "as-table");
     let chart = anychart.sunburst(dataTree);
-    const [sliderData, setSliderData] = useState({
+    const [sliderData] = useState({
         min: 0,
         max: stats.length,
         step: 2,
@@ -99,8 +100,6 @@ const UserSessionChart = () => {
                     min={sliderData.min}
                     max={sliderData.max}
                     step={sliderData.step}
-                    initialValue={sliderData.initialValue}
-                    marks={sliderData.marks}
                     names={sliderData.names}
                     onSliderChange={handleSliderChange} />
                 ) 

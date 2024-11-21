@@ -11,8 +11,8 @@ interface RangeSliderProps {
     onSliderChange: (newValue: string) => void;
 }
 
-const RangeSlider: React.FC<RangeSliderProps> = ({ min, max, step, names, onSliderChange }) => {
-    const { stats, loading, error } = useSelector((state: RootState) => state.stats);
+const RangeSlider: React.FC<RangeSliderProps> = ({ min, step, onSliderChange }) => {
+    const { stats} = useSelector((state: RootState) => state.stats);
     
     // Local state for the range slider value
     const [sliderValue, setSliderValue] = useState<number>(0);
