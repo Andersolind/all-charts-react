@@ -1,3 +1,4 @@
+import React from "react"
 import LengendIndicator from "./LegendIndicator"
 
 const Legend : React.FC = () => {
